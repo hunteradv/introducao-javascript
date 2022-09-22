@@ -96,6 +96,10 @@ label{
 	padding: 10px 0px;
 }
 
+#nome {
+	width: 100%;
+}
+
 button{
 	padding: .5em 2em;
 	border: 0;
