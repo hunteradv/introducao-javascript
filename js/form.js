@@ -10,13 +10,35 @@ botaoAdicionar.addEventListener("click", function(event) {
     //cria a tr e td no html
     let pacienteTr = montaTr(paciente);
 
+    let erros = validaPaciente(paciente);
+
+    if(erros.length > 0) {
+        exibeMensagensDeErro(erros);        
+        return;
+    }
+
     //adicionando o paciente na tabela
     let tabela = document.querySelector("#tabela-pacientes");
 
     tabela.appendChild(pacienteTr);
 
     form.reset();
+
+    let mensagensDeErro = document.querySelector("#mensagens-erro");
+    mensagensDeErro.innerHTML = '';
 });
+
+function exibeMensagensDeErro(erros) {
+    let ul = document.querySelector('#mensagens-erro');
+
+    ul.innerHTML = "";
+    
+    erros.forEach(function(erro){
+        let li = document.createElement("li");
+        li.textContent = erro;
+        ul.appendChild(li);
+    });
+}
 
 function obtemPacienteDoFormulario(form) {
 
@@ -50,4 +72,17 @@ function montaTd(dado, classe) {
     td.classList.add(classe);
 
     return td;
+}
+
+function validaPaciente(paciente) {
+    let erros = [];
+
+    if(paciente.nome.length == 0) erros.push("O nome do paciente não pode ser em branco");
+    if(!validaPeso(paciente.peso)) erros.push("Peso é inválido");
+    if(!validaAltura(paciente.altura)) erros.push("Altura é inválida");
+    if(paciente.gordura.length == 0) erros.push("A gordura não pode ser em branco");
+    if(paciente.peso.length == 0) erros.push("O peso não pode ser em branco");
+    if(paciente.altura.length == 0) erros.push("A altura não pode ser em branco");
+
+    return erros;
 }
