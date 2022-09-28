@@ -22,8 +22,7 @@ botaoAdd.addEventListener("click", function() {
             console.log(this.responseText);
 
             erroAjax.classList.remove("invisivel");
-        }
-        
+        }        
     });
 
     xhr.send();
